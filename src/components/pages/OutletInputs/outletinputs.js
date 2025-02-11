@@ -1320,7 +1320,7 @@ const updateDelistedSkuState = (skuStatusChange) => {
   
     try {
       const response = await axios.post(
-        "http://192.168.50.55:8080/filter-date-range",
+        "https://rc-ugc-attendance-backend.onrender.com/filter-date-range",
         data
       );
   
@@ -1420,7 +1420,7 @@ const updateDelistedSkuState = (skuStatusChange) => {
       const branches = loggedInBranch.split(",").map(b => b.trim());
   
       // Sending the branch info in the POST request to backend
-      const response = await axios.post("http://192.168.50.55:8080/get-users-by-branch", {
+      const response = await axios.post("https://rc-ugc-attendance-backend.onrender.com/get-users-by-branch", {
         branches,
       });
   

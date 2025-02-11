@@ -142,7 +142,7 @@ export default function Admin() {
   const handleBranchSave = async (email) => {
     try {
       const response = await axios.put(
-        "http://192.168.50.55:8080/update-user-branch",
+        "https://rc-ugc-attendance-backend.onrender.com/update-user-branch",
         {
           emailAddress: email, // Use the passed email directly
           branches: selectedBranches,
@@ -1171,7 +1171,7 @@ export default function Admin() {
 
       // Send the emails to the backend
       const response = await axios.post(
-        "http://192.168.50.55:8080/update-coor-details",
+        "https://rc-ugc-attendance-backend.onrender.com/update-coor-details",
         {
           emails: selectedEmails,
         }
@@ -1354,7 +1354,7 @@ export default function Admin() {
   async function getUser() {
     try {
       const response = await axios.post(
-        "http://192.168.50.55:8080/get-all-user"
+        "https://rc-ugc-attendance-backend.onrender.com/get-all-user"
       );
       const data = response.data.data;
 
@@ -1373,7 +1373,7 @@ export default function Admin() {
   async function getMerchandiserData() {
     try {
       const response = await axios.post(
-        "http://192.168.50.55:8080/get-all-merchandiser"
+        "https://rc-ugc-attendance-backend.onrender.com/get-all-merchandiser"
       );
       const data = response.data.data;
 
@@ -1398,7 +1398,7 @@ export default function Admin() {
 
   async function getUser() {
     await axios
-      .post("http://192.168.50.55:8080/get-admin-user", requestBody)
+      .post("https://rc-ugc-attendance-backend.onrender.com/get-admin-user", requestBody)
       .then(async (response) => {
         const data = await response.data.data;
 
@@ -1423,7 +1423,7 @@ export default function Admin() {
 
   async function setStatus() {
     await axios
-      .put("http://192.168.50.55:8080/update-status", requestBody)
+      .put("https://rc-ugc-attendance-backend.onrender.com/update-status", requestBody)
       .then(async (response) => {
         const data = await response.data.data;
 
@@ -1451,7 +1451,7 @@ export default function Admin() {
     }
 
     await axios
-      .post("http://192.168.50.55:8080/send-otp-register", {
+      .post("https://rc-ugc-attendance-backend.onrender.com/send-otp-register", {
         email: adminEmail,
       })
       .then(async (response) => {
@@ -1508,7 +1508,7 @@ export default function Admin() {
       };
 
       axios
-        .post("http://192.168.50.55:8080/register-user-admin", userDetails)
+        .post("https://rc-ugc-attendance-backend.onrender.com/register-user-admin", userDetails)
         .then(async (response) => {
           const data = response.data;
 
