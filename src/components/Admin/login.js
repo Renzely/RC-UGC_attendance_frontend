@@ -17,7 +17,7 @@ import logo from './Studio-Project.png';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2a9d8f', // Green color
+      main: '#3674B5', // Green color
     },
     background: {
       default: '#edf6f9', // White background
@@ -45,7 +45,7 @@ export default function Login() {
     }
 
     try {
-      const response = await axios.post('http://192.168.50.55:8080/login-admin', body);
+      const response = await axios.post('https://rc-ugc-attendance-backend.onrender.com/login-admin', body);
       const data = await response.data;
 
       if (data.status === 200) {
