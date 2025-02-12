@@ -68,14 +68,19 @@ export default function Attendance() {
     {
       field: "fullName",
       headerName: "FULL NAME",
-      width: 200,
+      width: 150,
       headerClassName: "bold-header",
     },
-
+    {
+      field: "remarks",
+      headerName: "CLIENT",
+      width: 150,
+      headerClassName: "bold-header",
+    }, // New column
     {
       field: "outlet",
       headerName: "OUTLET",
-      width: 180,
+      width: 150,
       headerClassName: "bold-header",
     }, // New outlet column
     {
@@ -285,10 +290,13 @@ export default function Attendance() {
             user.lastName,
           ]);
 
+          const remarks = user.remarks || "No Remarks"; // Include remarks
+
           // Include user data with attendance or placeholders
           return {
             count: key + 1,
             fullName: `${capitalizedNames[0]} ${capitalizedNames[2]}`,
+            remarks: remarks,
             firstName: capitalizedNames[0],
             middleName: capitalizedNames[1] || "Null",
             lastName: capitalizedNames[2],
