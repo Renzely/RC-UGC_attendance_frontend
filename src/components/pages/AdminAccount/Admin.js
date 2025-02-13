@@ -182,9 +182,9 @@ export default function Admin() {
   const merchandiser = [];
 
   const branches = [
+    "OFFICE",
     "HEAD OFFICE",
-    "CLIENT'S OFFICE",
-    "Branch"
+    "Branch",
   ];
 
   const handleRoleChange = (event) => {
@@ -923,10 +923,10 @@ export default function Admin() {
           onClick={() => setSelectedBranches([])}
           variant="outlined"
           sx={{
-            backgroundColor: "rgb(255, 220, 220)",
-            color: "rgb(0, 0, 0)",
+            backgroundColor: "#A31D1D",
+            color: "rgb(255, 255, 255)",
             borderColor: "FFFFFF",
-            "&:hover": { backgroundColor: "rgb(255, 190, 190)" },
+            "&:hover": { backgroundColor: "#A31D1D" },
           }}
         >
           Remove All
@@ -940,7 +940,7 @@ export default function Admin() {
         sx={{
           backgroundColor: "#0A21C0",
           color: "#FFFFFF",
-          "&:hover": { backgroundColor: "rgb(13, 105, 28)" },
+          "&:hover": { backgroundColor: "#0A21C0" },
         }}
       >
         Save Outlet Changes
