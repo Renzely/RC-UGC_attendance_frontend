@@ -1,26 +1,26 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import Swal from "sweetalert2";
-import logo from './Studio-Project.png';
+import logo from "./Studio-Project.png";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#3674B5', // Green color
+      main: "#3674B5", // Green color
     },
     background: {
-      default: '#edf6f9', // White background
+      default: "#edf6f9", // White background
     },
   },
 });
@@ -31,21 +31,24 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
 
     const body = {
-      emailAddress: data.get('email'),
-      password: data.get('password')
-    }
+      emailAddress: data.get("email"),
+      password: data.get("password"),
+    };
 
     if (!body.emailAddress || !body.password) {
       Swal.fire({
         title: "Unable to Proceed",
         text: "Please input your credentials",
-        icon: "warning"
+        icon: "warning",
       });
       return;
     }
 
     try {
-      const response = await axios.post('https://rc-ugc-attendance-backend.onrender.com/login-admin', body);
+      const response = await axios.post(
+        "https://rc-ugc-attendance-backend.onrender.com/login-admin",
+        body
+      );
       const data = await response.data;
 
       if (data.status === 200) {
@@ -71,18 +74,17 @@ export default function Login() {
             window.location.href = "/view-accounts";
           }
         });
-      }
-      else if (data.status === 401) {
+      } else if (data.status === 401) {
         Swal.fire({
           title: "Login Failed!",
           text: data.data,
-          icon: "error"
+          icon: "error",
         });
       } else {
         Swal.fire({
           title: "Login Error!",
           text: data.data,
-          icon: "error"
+          icon: "error",
         });
       }
     } catch (error) {
@@ -90,7 +92,7 @@ export default function Login() {
       Swal.fire({
         title: "Login Error!",
         text: "Something went wrong. Please try again later.",
-        icon: "error"
+        icon: "error",
       });
     }
   };
@@ -102,16 +104,25 @@ export default function Login() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <img src={logo} alt="Logo" style={{ width: '150px', marginBottom: '16px' }} />
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ width: "150px", marginBottom: "16px" }}
+          />
           <Typography component="h1" variant="h5">
             LOGIN
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -122,10 +133,10 @@ export default function Login() {
               autoComplete="email"
               autoFocus
               InputProps={{
-                style: { color: 'black' }
+                style: { color: "black" },
               }}
               InputLabelProps={{
-                style: { color: 'black' }
+                style: { color: "black" },
               }}
             />
             <TextField
@@ -138,10 +149,10 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               InputProps={{
-                style: { color: 'black' }
+                style: { color: "black" },
               }}
               InputLabelProps={{
-                style: { color: 'black' }
+                style: { color: "black" },
               }}
             />
             <Button
@@ -154,7 +165,11 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="/forgotpassword" variant="body2" style={{ color: 'black', fontWeight: "bold" }}>
+                <Link
+                  href="/forgotpassword"
+                  variant="body2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
                   FORGOT PASSWORD
                 </Link>
               </Grid>

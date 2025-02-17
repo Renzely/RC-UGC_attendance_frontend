@@ -2,7 +2,16 @@ import "./attendance.css";
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
-import { Button, Stack } from "@mui/material";
+import {
+  Checkbox,
+  Button,
+  Stack,
+  TextField,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -52,6 +61,15 @@ const formatDateTime = (dateTime, isTimeIn = false) => {
 
 export default function Attendance() {
   const [userData, setUserData] = React.useState([]);
+  const [selectedRemarks, setSelectedRemarks] = React.useState("");
+  const handleRoleChange = (event) => {
+    setSelectedRemarks(event.target.value);
+  };
+
+  const filteredData =
+    selectedRemarks === "" || selectedRemarks === "UNFILTERED"
+      ? userData
+      : userData.filter((user) => user.remarks === selectedRemarks);
 
   const body = { test: "test" };
   const [open, setOpen] = React.useState(false);
@@ -119,8 +137,7 @@ export default function Attendance() {
               <Button
                 variant="contained"
                 size="small"
-                style={{        backgroundColor: "#0A21C0",
-                  color: "#FFFFFF", }} // Green color with white text
+                style={{ backgroundColor: "#0A21C0", color: "#FFFFFF" }} // Green color with white text
               >
                 VIEW
               </Button>
@@ -334,7 +351,7 @@ export default function Attendance() {
             padding: { xs: "10px", sm: "20px" },
             maxWidth: "100%",
             overflow: "auto",
-              backgroundColor: "#2C2E3A"
+            backgroundColor: "#003554",
           }}
         >
           <Box
@@ -349,8 +366,32 @@ export default function Attendance() {
               },
             }}
           >
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              {/* Title on the Left */}
+              <Typography sx={{ mr: 2, fontWeight: "bold", color: "white" }}>
+                CLIENT:
+              </Typography>
+
+              {/* Dropdown */}
+              <FormControl sx={{ width: 200 }}>
+                <Select
+                  value={selectedRemarks}
+                  onChange={handleRoleChange}
+                  displayEmpty
+                  sx={{ backgroundColor: "white" }}
+                >
+                  <MenuItem value="" disabled>
+                    Select Client
+                  </MenuItem>
+                  <MenuItem value="UNFILTERED">UNFILTERED</MenuItem>
+                  <MenuItem value="RC SALES AGENT">RC SALES AGENT</MenuItem>
+                  <MenuItem value="UGC PERSONNEL">UGC PERSONNEL</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
             <DataGrid
-              rows={userData}
+              rows={filteredData}
               columns={columns}
               initialState={{
                 pagination: {

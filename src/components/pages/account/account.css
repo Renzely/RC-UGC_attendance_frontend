@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
 .account {
   flex: 5;
   background-color: aliceblue;
@@ -5,13 +7,19 @@
 
 .detailTitle {
   font-size: 15px;
-  margin-right: 100;
+  margin-right: 2px; /* Add "px" */
 }
 
 .detailDescription {
   font-size: 13px;
-  margin-left: 100;
+  margin-left: 2px; /* Add "px" */
 }
+
+.MuiDataGrid-root {
+  font-family: "Inter", sans-serif;
+}
+
 .bold-header .MuiDataGrid-columnHeaderTitle {
+  font-family: "Inter", sans-serif;
   font-weight: bold;
 }

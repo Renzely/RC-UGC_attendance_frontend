@@ -9,7 +9,16 @@ import {
   GridToolbar,
 } from "@mui/x-data-grid";
 import axios, { isAxiosError } from "axios";
-import { Button, Stack, TextField } from "@mui/material";
+import {
+  Checkbox,
+  Button,
+  Stack,
+  TextField,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -53,7 +62,7 @@ export default function Account() {
   });
 
   const [userData, setUserData] = React.useState([]);
-
+  const [selectedRemarks, setSelectedRemarks] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
@@ -92,6 +101,15 @@ export default function Account() {
     "HEAD OFFICE",
     "Branch",
   ]); //Branches
+
+  const handleRoleChange = (event) => {
+    setSelectedRemarks(event.target.value);
+  };
+
+  const filteredData =
+    selectedRemarks === "" || selectedRemarks === "UNFILTERED"
+      ? userData
+      : userData.filter((user) => user.remarks === selectedRemarks);
 
   // State for the second modal
   const [openBranchModal, setOpenBranchModal] = React.useState(false);
@@ -361,10 +379,14 @@ export default function Account() {
           count: key + 1,
           remarks: data.remarks,
           firstName: capitalizedNames[0],
-          middleName: capitalizedNames[1] || "Null",
+          middleName: capitalizedNames[1] || "",
           lastName: capitalizedNames[2],
           username: data.username,
-          Branch: data.accountNameBranchManning,
+          Branch: Array.isArray(data.accountNameBranchManning)
+            ? data.accountNameBranchManning
+                .map((branch) => branch.trim())
+                .join(", ") // Format as string
+            : data.accountNameBranchManning || "", // Handle null/undefined cases
           emailAddress: data.emailAddress,
           contactNum: data.contactNum,
           isActive: data.isActivate,
@@ -411,7 +433,7 @@ export default function Account() {
             padding: { xs: "10px", sm: "20px" },
             maxWidth: "100%",
             overflow: "auto",
-             backgroundColor: "#2C2E3A"
+            backgroundColor: "#003554",
           }}
         >
           {/* Responsive DataGrid */}
@@ -427,8 +449,33 @@ export default function Account() {
               },
             }}
           >
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              {/* Title on the Left */}
+              <Typography sx={{ mr: 2, fontWeight: "bold", color: "white" }}>
+                CLIENT:
+              </Typography>
+
+              {/* Dropdown */}
+              <FormControl sx={{ width: 200 }}>
+                <Select
+                  value={selectedRemarks}
+                  onChange={handleRoleChange}
+                  displayEmpty
+                  sx={{ backgroundColor: "white" }}
+                >
+                  <MenuItem value="" disabled>
+                    Select Role
+                  </MenuItem>
+                  <MenuItem value="UNFILTERED">UNFILTERED</MenuItem>
+                  <MenuItem value="RC SALES AGENT">RC SALES AGENT</MenuItem>
+                  <MenuItem value="UGC PERSONNEL">UGC PERSONNEL</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
             <DataGrid
-              rows={userData}
+              //rows={userData}
+              rows={filteredData}
               columns={columns}
               initialState={{
                 pagination: {
@@ -472,56 +519,126 @@ export default function Account() {
                 backgroundColor: "white",
                 margin: { xs: "10% auto", md: "5% auto" },
                 width: { xs: "90%", sm: "70%", md: "50%" },
+                maxHeight: "80vh",
+                overflowY: "auto",
                 boxShadow: 24,
                 borderRadius: 2,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
               }}
             >
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                Full Details:
+                Full Details
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <span className="detailTitle">Full name: </span>
-                <span className="detailDescription">{modalFullName}</span>
-                <br />
-                <span className="detailTitle">Email: </span>
-                <span className="detailDescription">{modalEmail}</span>
-                <br />
-                <span className="detailTitle">Contact Number: </span>
-                <span className="detailDescription">{modalPhone}</span>
-                <br />
-                <span className="detailTitle">Outlets: </span>
-                <span className="detailDescription">
-                  {Array.isArray(modalBranch)
-                    ? modalBranch.join(", ")
-                    : modalBranch}
-                </span>
-                <br />
-                <br />
-                {/* Button to open branch selection modal */}
+              <Stack spacing={3} sx={{ mt: 2 }}>
+                {/* Display Full Details */}
+                <TextField
+                  label="Full Name"
+                  id="modal-full-name"
+                  defaultValue={modalFullName}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  fullWidth
+                />
+                <TextField
+                  label="Email"
+                  id="modal-email"
+                  defaultValue={modalEmail}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  fullWidth
+                />
+                <TextField
+                  label="Contact Number"
+                  id="modal-phone"
+                  defaultValue={modalPhone}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  fullWidth
+                />
+
+                <TextField
+                  label="Branch"
+                  id="modal-outlets"
+                  value={
+                    Array.isArray(modalBranch)
+                      ? modalBranch.join(", ") // Join selected branches as a comma-separated string
+                      : modalBranch || "" // Handle null/undefined cases
+                  }
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  fullWidth
+                />
+
+                {/* Dropdown for selecting branches */}
+                <Autocomplete
+                  multiple
+                  id="branches-autocomplete"
+                  options={branches}
+                  value={selectedBranches}
+                  onChange={(event, newValue) => setSelectedBranches(newValue)}
+                  disableCloseOnSelect
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Select Outlet"
+                      placeholder="Select Outlet"
+                    />
+                  )}
+                  renderOption={(props, option, { selected }) => (
+                    <li {...props}>
+                      <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                      {option}
+                    </li>
+                  )}
+                />
+
+                {/* Buttons for selecting/removing all outlets */}
+                <Stack direction="row" spacing={2} justifyContent="center">
+                  <Button
+                    onClick={() => setSelectedBranches(branches)}
+                    variant="outlined"
+                    sx={{
+                      backgroundColor: "#0A21C0",
+                      color: "#FFFFFF",
+                      borderColor: "FFFFFF",
+                      "&:hover": { backgroundColor: "#0A21C0" },
+                    }}
+                  >
+                    Select All
+                  </Button>
+                  <Button
+                    onClick={() => setSelectedBranches([])}
+                    variant="outlined"
+                    sx={{
+                      backgroundColor: "#A31D1D",
+                      color: "rgb(255, 255, 255)",
+                      borderColor: "FFFFFF",
+                      "&:hover": { backgroundColor: "#A31D1D" },
+                    }}
+                  >
+                    Remove All
+                  </Button>
+                </Stack>
+
+                {/* Save Outlet Changes Button */}
                 <Button
+                  onClick={() => handleBranchSave(modalEmail)}
                   variant="contained"
-                  onClick={handleOpenBranchModal}
-                  disabled={!isAllowed}
                   sx={{
                     backgroundColor: "#0A21C0",
                     color: "#FFFFFF",
-                    "&:hover": {
-                      backgroundColor: "0A21C0",
-                    },
-                    "&.Mui-disabled": {
-                      backgroundColor: "rgba(0, 0, 0, 0.26)",
-                      color: "rgba(255, 255, 255, 0.5)",
-                    },
+                    "&:hover": { backgroundColor: "#0A21C0" },
                   }}
                 >
-                  Select Outlet
+                  Save Outlet Changes
                 </Button>
-              </Typography>
-              <Stack>
-                <DialogActions>
+
+                {/* Buttons for closing the modal */}
+                <DialogActions sx={{ justifyContent: "space-between" }}>
                   <Button onClick={handleClose}>Close</Button>
                 </DialogActions>
               </Stack>
