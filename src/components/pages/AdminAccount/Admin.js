@@ -1044,6 +1044,31 @@ export default function Admin() {
                 </Select>
               </FormControl>
 
+              <FormControl fullWidth sx={{ m: 1 }}>
+                <InputLabel id="branch-select-label"></InputLabel>
+                <Autocomplete
+                  multiple
+                  id="branch-select"
+                  options={branches}
+                  value={adminSelectedBranch}
+                  onChange={handleChange}
+                  renderOption={(props, option, { selected }) => (
+                    <li {...props}>
+                      <Checkbox checked={selected} style={{ marginRight: 8 }} />
+                      {option}
+                    </li>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Branches"
+                      placeholder="Select Branch"
+                    />
+                  )}
+                />
+              </FormControl>
+
               {/* More Form Fields */}
               <FormControl fullWidth sx={{ m: 1 }}>
                 <TextField
