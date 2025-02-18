@@ -436,6 +436,24 @@ export default function Account() {
             backgroundColor: "#003554",
           }}
         >
+          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            {/* Dropdown */}
+            <FormControl sx={{ width: 200 }}>
+              <Select
+                value={selectedRemarks}
+                onChange={handleRoleChange}
+                displayEmpty
+                sx={{ backgroundColor: "white" }}
+              >
+                <MenuItem value="" disabled>
+                  Select Client
+                </MenuItem>
+                <MenuItem value="UNFILTERED">UNFILTERED</MenuItem>
+                <MenuItem value="RC SALES AGENT">RC SALES AGENT</MenuItem>
+                <MenuItem value="UGC PERSONNEL">UGC PERSONNEL</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
           {/* Responsive DataGrid */}
           <Box
             sx={{
@@ -443,36 +461,12 @@ export default function Account() {
               width: "100%",
               maxHeight: "80vh",
               marginTop: 2,
-              overflow: "hidden",
+              overflow: "auto",
               "& .MuiDataGrid-root": {
                 backgroundColor: "#fff",
               },
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-              {/* Title on the Left */}
-              <Typography sx={{ mr: 2, fontWeight: "bold", color: "white" }}>
-                CLIENT:
-              </Typography>
-
-              {/* Dropdown */}
-              <FormControl sx={{ width: 200 }}>
-                <Select
-                  value={selectedRemarks}
-                  onChange={handleRoleChange}
-                  displayEmpty
-                  sx={{ backgroundColor: "white" }}
-                >
-                  <MenuItem value="" disabled>
-                    Select Role
-                  </MenuItem>
-                  <MenuItem value="UNFILTERED">UNFILTERED</MenuItem>
-                  <MenuItem value="RC SALES AGENT">RC SALES AGENT</MenuItem>
-                  <MenuItem value="UGC PERSONNEL">UGC PERSONNEL</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-
             <DataGrid
               //rows={userData}
               rows={filteredData}
