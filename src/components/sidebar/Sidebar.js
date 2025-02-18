@@ -42,15 +42,20 @@ export default function Sidebar() {
 
       {/* User Info */}
       <div className="sidebar-user">
-        <Avatar className="sidebar-avatar"
-        sx={{ color: "black", backgroundColor: "#B3B4BD"}}
+        <Avatar
+          className="sidebar-avatar"
+          sx={{ color: "black", backgroundColor: "#e7ecef" }}
         />
         {isOpen && (
           <div className="user-info">
             <Typography variant="body1" className="sidebar-name">
               {firstName}
             </Typography>
-            <Typography variant="body2" className="sidebar-role">
+            <Typography
+              variant="body2"
+              className="sidebar-role"
+              sx={{ fontFamily: "Inter, sans-serif", fontSize: "12.5px" }}
+            >
               {roleAccount}
             </Typography>
           </div>

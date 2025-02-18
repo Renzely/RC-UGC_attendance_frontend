@@ -1,13 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
 .sidebar {
   width: 60px;
   height: 95vh;
-  background: #050444;
+  background: #1b4965;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* Align items to the top */
   padding: 10px 0; /* Adjust padding */
   transition: width 0.3s;
+  font-family: "Inter", sans-serif;
 }
 
 .sidebar-divider {
@@ -49,13 +52,14 @@
 }
 
 .sidebar-avatar {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   margin-bottom: 10px;
 }
 
 .sidebar-name {
   font-size: 12px;
+  font-family: "Inter", sans-serif;
   color: white;
   border: none; /* Ensure no border is applied */
   background: none; /* Ensure no background is applied */
@@ -102,7 +106,7 @@
 }
 
 .sidebar-menu .active {
-  background: #0A21C0;
+  background: #0a21c0;
   color: white;
   width: 100%; /* Remove calc to ensure full width */
 }

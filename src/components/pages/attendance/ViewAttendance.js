@@ -81,74 +81,74 @@ export default function ViewAttendance() {
     );
   };
 
- // Fetch attendance data for the specific user
-async function fetchAttendanceData(emailAddress) {
-  try {
-    // Fetch all user data
-    const userResponse = await axios.post(
-      "https://rc-ugc-attendance-backend.onrender.com/get-all-user",
-      {}
-    );
-    const users = userResponse.data.data;
+  // Fetch attendance data for the specific user
+  async function fetchAttendanceData(emailAddress) {
+    try {
+      // Fetch all user data
+      const userResponse = await axios.post(
+        "https://rc-ugc-attendance-backend.onrender.com/get-all-user",
+        {}
+      );
+      const users = userResponse.data.data;
 
-    // Find the user matching the provided email address
-    const user = users.find((u) => u.emailAddress === emailAddress);
+      // Find the user matching the provided email address
+      const user = users.find((u) => u.emailAddress === emailAddress);
 
-    if (!user) {
-      console.error("User not found for email:", emailAddress);
-      return alert("User not found.");
-    }
+      if (!user) {
+        console.error("User not found for email:", emailAddress);
+        return alert("User not found.");
+      }
 
-    const { firstName, middleName, lastName, remarks } = user;
+      const { firstName, middleName, lastName, remarks } = user;
 
-    // Capitalize names
-    const capitalizedNames = capitalizeWords([
-      firstName,
-      middleName || "",
-      lastName,
-    ]);
+      // Capitalize names
+      const capitalizedNames = capitalizeWords([
+        firstName,
+        middleName || "",
+        lastName,
+      ]);
 
-    // Fetch attendance data
-    const attendanceResponse = await axios.post(
-      "https://rc-ugc-attendance-backend.onrender.com/get-attendance",
-      { userEmail: emailAddress }
-    );
-    let data = attendanceResponse.data.data;
+      // Fetch attendance data
+      const attendanceResponse = await axios.post(
+        "https://rc-ugc-attendance-backend.onrender.com/get-attendance",
+        { userEmail: emailAddress }
+      );
+      let data = attendanceResponse.data.data;
 
-    console.log("Raw attendance data:", data);
+      console.log("Raw attendance data:", data);
 
-    // Format data including fullName, remarks, and timeLogs for each day entry
-    const formattedData = data.flatMap((item) => {
-      return item.timeLogs.map((timeLog, index) => {
-        const formattedDate = formatDateTime(item.date);
-        const formattedTimeIn = formatDateTime(timeLog.timeIn);
-        const formattedTimeOut = formatDateTime(timeLog.timeOut);
+      // Format data including fullName, remarks, and timeLogs for each day entry
+      const formattedData = data.flatMap((item) => {
+        return item.timeLogs.map((timeLog, index) => {
+          const formattedDate = formatDateTime(item.date);
+          const formattedTimeIn = formatDateTime(timeLog.timeIn);
+          const formattedTimeOut = formatDateTime(timeLog.timeOut);
 
-        return {
-          ...item,
-          fullName: `${capitalizedNames[0]} ${capitalizedNames[2]}`,
-          remarks: remarks || "No Remarks", // Placing remarks below fullName
-          date: formattedDate.date || "N/A",
-          timeIn: formattedTimeIn.time || "No Time In",
-          timeOut: formattedTimeOut.time || "No Time Out",
-          timeInLocation: timeLog.timeInLocation || "No location",
-          timeOutLocation: timeLog.timeOutLocation || "No location",
-          timeInCoordinates: timeLog.timeInCoordinates || {
-            latitude: 0,
-            longitude: 0,
-          },
-          timeOutCoordinates: timeLog.timeOutCoordinates || {
-            latitude: 0,
-            longitude: 0,
-          },
-          selfieUrl: timeLog.selfieUrl || "", // Add selfieUrl here
-          timeOutSelfieUrl: timeLog.timeOutSelfieUrl || "", // Time-out selfie
-          accountNameBranchManning:
-            item.accountNameBranchManning || "Unknown Outlet",
-          count: index + 1, // Assign count based on the index of the timeLog
-        };
+          return {
+            ...item,
+            fullName: `${capitalizedNames[0]} ${capitalizedNames[2]}`,
+            remarks: remarks || "No Remarks", // Placing remarks below fullName
+            date: formattedDate.date || "N/A",
+            timeIn: formattedTimeIn.time || "No Time In",
+            timeOut: formattedTimeOut.time || "No Time Out",
+            timeInLocation: timeLog.timeInLocation || "No location",
+            timeOutLocation: timeLog.timeOutLocation || "No location",
+            timeInCoordinates: timeLog.timeInCoordinates || {
+              latitude: 0,
+              longitude: 0,
+            },
+            timeOutCoordinates: timeLog.timeOutCoordinates || {
+              latitude: 0,
+              longitude: 0,
+            },
+            selfieUrl: timeLog.selfieUrl || "", // Add selfieUrl here
+            timeOutSelfieUrl: timeLog.timeOutSelfieUrl || "", // Time-out selfie
+            accountNameBranchManning:
+              item.accountNameBranchManning || "Unknown Outlet",
+            count: index + 1, // Assign count based on the index of the timeLog
+          };
+        });
       });
-    });
 
       console.log("Formatted data:", formattedData);
 
@@ -526,7 +526,7 @@ async function fetchAttendanceData(emailAddress) {
       const headers = [
         "#",
         "Full Name",
-        "Client",  // Add Full Name header
+        "Client", // Add Full Name header
         "Date",
         "Time In",
         "Time In Photo",
@@ -637,7 +637,7 @@ async function fetchAttendanceData(emailAddress) {
             padding: { xs: "10px", sm: "20px" },
             maxWidth: "100%",
             overflow: "auto",
-            backgroundColor: "#2C2E3A", // Background color from attendance.js
+            backgroundColor: "#003554", // Background color from attendance.js
           }}
         >
           <Box
@@ -670,7 +670,7 @@ async function fetchAttendanceData(emailAddress) {
                 }}
               />
             </LocalizationProvider>
-  
+
             <Button
               onClick={getExportData}
               variant="contained"
@@ -685,7 +685,7 @@ async function fetchAttendanceData(emailAddress) {
               Export
             </Button>
           </Box>
-  
+
           {/* Photo Modal */}
           <Modal
             open={openPhotoModal}
@@ -714,7 +714,7 @@ async function fetchAttendanceData(emailAddress) {
               )}
             </Box>
           </Modal>
-  
+
           {/* Map Modal */}
           <Modal
             open={open}
@@ -752,7 +752,7 @@ async function fetchAttendanceData(emailAddress) {
               </div>
             </Box>
           </Modal>
-  
+
           {/* Attendance Data Table */}
           <Box
             sx={{
