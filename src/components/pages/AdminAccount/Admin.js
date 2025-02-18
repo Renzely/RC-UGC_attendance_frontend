@@ -360,7 +360,7 @@ export default function Admin() {
     {
       field: "accountNameBranchManning",
       headerName: "OUTLET",
-      width: 200,
+      width: 240,
       headerClassName: "bold-header",
     },
     {
@@ -565,7 +565,13 @@ export default function Admin() {
           return {
             count: key + 1,
             roleAccount: data.roleAccount,
-            accountNameBranchManning: data.accountNameBranchManning,
+            accountNameBranchManning: Array.isArray(
+              data.accountNameBranchManning
+            )
+              ? data.accountNameBranchManning
+                  .map((branch) => branch.trim())
+                  .join(", ") // Format as string
+              : data.accountNameBranchManning || "", // Handle null/undefined cases
             firstName: data.firstName,
             middleName: data.middleName ? data.middleName : "",
             lastName: data.lastName,
@@ -688,21 +694,27 @@ export default function Admin() {
               confirmButtonColor: "#3085d6",
             }).then((result) => {
               if (result.isConfirmed) {
-                return window.location.reload();
-              } else {
-                return window.location.reload();
+                window.location.reload();
               }
             });
           } else {
             Swal.fire({
               title: "Unable to proceed",
-              text: "Saving user Error!",
+              text: data.data || "Saving user Error!",
               icon: "error",
             });
           }
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch((error) => {
+          console.error(
+            "Error:",
+            error.response ? error.response.data : error.message
+          );
+          Swal.fire({
+            title: "Unable to proceed",
+            text: error.response?.data?.data || "An unexpected error occurred.",
+            icon: "error",
+          });
         });
     } else if (otpCode !== inputOtpCode) {
       setInputOtpCodeError("OTP code does not match.");
