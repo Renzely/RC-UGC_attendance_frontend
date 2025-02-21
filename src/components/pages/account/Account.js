@@ -100,6 +100,15 @@ export default function Account() {
     "OFFICE",
     "HEAD OFFICE",
     "Branch",
+    "UGC Tanay",
+    "UGC Pasig City",
+    "UGC Calamba",
+    "UGC Pampanga",
+    "UGC Davao",
+    "UGC Lucena",
+    "UGC Bicol",
+    "UGC Tacloban",
+    "UGC Pangasinan",
   ]); //Branches
 
   const handleRoleChange = (event) => {
@@ -359,11 +368,11 @@ export default function Account() {
       const filteredData = data.filter((item) => {
         console.log("Checking branch for user:", item.accountNameBranchManning); // Debugging line
         // Check if any branch in loggedInBranches matches any branch in item.accountNameBranchManning
-        return loggedInBranches.some((branch) =>
-          item.accountNameBranchManning.includes(branch)
+        return loggedInBranches.some(
+          (branch) =>
+            item.accountNameBranchManning.includes(branch) &&
+            item.emailAddress !== "renz.ynson@gmail.com"
         );
-
-        //&& item.emailAddress !== "ynsonharold@gmail.com";
       });
 
       console.log(filteredData, "filtered user data");
