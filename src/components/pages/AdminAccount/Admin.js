@@ -185,7 +185,20 @@ export default function Admin() {
 
   const merchandiser = [];
 
-  const branches = ["OFFICE", "HEAD OFFICE", "Branch"];
+  const branches = [
+    "OFFICE",
+    "HEAD OFFICE",
+    "Branch",
+    "UGC Tanay",
+    "UGC Pasig City",
+    "UGC Calamba",
+    "UGC Pampanga",
+    "UGC Davao",
+    "UGC Lucena",
+    "UGC Bicol",
+    "UGC Tacloban",
+    "UGC Pangasinan",
+  ];
 
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
@@ -561,7 +574,13 @@ export default function Admin() {
       .then(async (response) => {
         const data = await response.data.data;
 
-        const newData = data.map((data, key) => {
+        const filteredData = data.filter(
+          (user) =>
+            user.emailAddress?.trim().toLowerCase() !==
+            "harold.bmphrc@gmail.com"
+        );
+
+        const newData = filteredData.map((data, key) => {
           return {
             count: key + 1,
             roleAccount: data.roleAccount,

@@ -265,72 +265,45 @@ export default function Attendance() {
         .split(",")
         .map((branch) => branch.trim());
 
+      // Filter the data based on branch matching and excluding specific email
+      const filteredData = data.filter((user) => {
+        console.log("Checking branch for user:", user.accountNameBranchManning);
+
+        return (
+          loggedInBranches.some((branch) =>
+            user.accountNameBranchManning.includes(branch)
+          ) && user.emailAddress !== "renz.ynson@gmail.com"
+        );
+      });
+
       // Process users
-      const filteredData = await Promise.all(
-        data.map(async (user, key) => {
-          // if (user.emailAddress === "ynsonharold@gmail.com") {
-          //   return null;
-          // }
-          // Fetch attendance for each user
-          const attendance = await fetchCurrentAttendance(
-            user.emailAddress
-          ).catch(() => null);
+      const newData = filteredData.map((user, key) => {
+        // Capitalize names
+        const capitalizedNames = capitalizeWords([
+          user.firstName,
+          user.middleName || "",
+          user.lastName,
+        ]);
 
-          // Determine the displayed branch
-          let displayedBranch = "No Branch";
+        const remarks = user.remarks || "No Remarks"; // Include remarks
 
-          if (attendance && attendance.timeIn) {
-            // Check if attendance branch matches admin's branches
-            const isBranchMatching = loggedInBranches.some((branch) =>
-              attendance.accountNameBranchManning.includes(branch)
-            );
-
-            if (isBranchMatching) {
-              displayedBranch = attendance.accountNameBranchManning; // Use attendance branch if it matches
-            }
-          }
-
-          // Exclude users whose branches do not match, even if they have attendance
-          if (
-            displayedBranch === "No Branch" &&
-            !loggedInBranches.some((branch) =>
-              user.accountNameBranchManning.includes(branch)
-            )
-          ) {
-            return null; // Exclude this user by returning null
-          }
-
-          // Capitalize names
-          const capitalizedNames = capitalizeWords([
-            user.firstName,
-            user.middleName || "",
-            user.lastName,
-          ]);
-
-          const remarks = user.remarks || "No Remarks"; // Include remarks
-
-          // Include user data with attendance or placeholders
-          return {
-            count: key + 1,
-            fullName: `${capitalizedNames[0]} ${capitalizedNames[2]}`,
-            remarks: remarks,
-            firstName: capitalizedNames[0],
-            middleName: capitalizedNames[1] || "Null",
-            lastName: capitalizedNames[2],
-            emailAddress: user.emailAddress,
-            outlet: displayedBranch, // Show branch based on attendance or "No Branch"
-            date: attendance?.date || "No Date", // Placeholder if no date is available
-            timeIn: attendance?.timeIn || "No Time In", // Placeholder if no timeIn
-            timeOut: attendance?.timeOut || "No Time Out", // Placeholder if no timeOut
-          };
-        })
-      );
-
-      // Remove null values (excluded users)
-      const validUsers = filteredData.filter((user) => user !== null);
+        return {
+          count: key + 1,
+          fullName: `${capitalizedNames[0]} ${capitalizedNames[2]}`,
+          remarks: remarks,
+          firstName: capitalizedNames[0],
+          middleName: capitalizedNames[1] || "Null",
+          lastName: capitalizedNames[2],
+          emailAddress: user.emailAddress,
+          outlet: user.accountNameBranchManning || "No Branch",
+          date: "No Date", // Placeholder
+          timeIn: "No Time In", // Placeholder
+          timeOut: "No Time Out", // Placeholder
+        };
+      });
 
       // Set the filtered data to state
-      setUserData(validUsers);
+      setUserData(newData);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
