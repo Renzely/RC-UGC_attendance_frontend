@@ -1321,7 +1321,7 @@ export default function OUTLET() {
 
     try {
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/filter-date-range",
+        "https://rc-and-ugc.onrender.com/filter-date-range",
         data
       );
 
@@ -1422,7 +1422,7 @@ export default function OUTLET() {
 
       // Sending the branch info in the POST request to backend
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/get-users-by-branch",
+        "https://rc-and-ugc.onrender.com/get-users-by-branch",
         {
           branches,
         }

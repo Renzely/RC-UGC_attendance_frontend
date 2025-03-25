@@ -49,7 +49,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/login-admin",
+        "https://rc-and-ugc.onrender.com/login-admin",
         body
       );
       const data = await response.data;

@@ -134,7 +134,7 @@ export default function Account() {
     try {
       // Update the user's branches with the selected branches
       const response = await axios.put(
-        "https://rc-ugc-attendance-backend.onrender.com/update-user-branch",
+        "https://rc-and-ugc.onrender.com/update-user-branch",
         {
           emailAddress: modalEmail,
           branches: selectedBranches,
@@ -356,7 +356,7 @@ export default function Account() {
 
       // Send request to get all user data
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/get-all-user",
+        "https://rc-and-ugc.onrender.com/get-all-user",
         requestBody
       );
 
@@ -412,10 +412,7 @@ export default function Account() {
   async function setStatus() {
     console.log("check body", requestBody);
     await axios
-      .put(
-        "https://rc-ugc-attendance-backend.onrender.com/update-status",
-        requestBody
-      )
+      .put("https://rc-and-ugc.onrender.com/update-status", requestBody)
       .then(async (response) => {
         const data = await response.data.data;
 

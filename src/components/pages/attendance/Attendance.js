@@ -163,7 +163,7 @@ export default function Attendance() {
 
     try {
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/get-attendance",
+        "https://rc-and-ugc.onrender.com/get-attendance",
         { userEmail: emailAddress, date: formattedDate }
       );
       const data = response.data.data;
@@ -247,7 +247,7 @@ export default function Attendance() {
     try {
       // Fetch the users' data
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/get-all-user",
+        "https://rc-and-ugc.onrender.com/get-all-user",
         body
       );
       const data = response.data.data;
