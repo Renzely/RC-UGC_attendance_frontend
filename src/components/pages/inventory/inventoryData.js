@@ -285,7 +285,7 @@ export default function Inventory() {
 
       // Fetch the inventory data filtered by branches
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/retrieve-parcel-data",
+        "https://rc-and-ugc.onrender.com/retrieve-parcel-data",
         { branches } // Pass branches in the request body
       );
 
@@ -371,7 +371,7 @@ export default function Inventory() {
 
     try {
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/filter-date-range", // Correct endpoint
+        "https://rc-and-ugc.onrender.com/filter-date-range", // Correct endpoint
         data
       );
 
@@ -446,7 +446,7 @@ export default function Inventory() {
 
     try {
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/export-inventory-data-towi",
+        "https://rc-and-ugc.onrender.com/export-inventory-data-towi",
         {
           start: bDate,
           end: eDate,

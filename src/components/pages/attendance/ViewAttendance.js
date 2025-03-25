@@ -86,7 +86,7 @@ export default function ViewAttendance() {
     try {
       // Fetch all user data
       const userResponse = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/get-all-user",
+        "https://rc-and-ugc.onrender.com/get-all-user",
         {}
       );
       const users = userResponse.data.data;
@@ -110,7 +110,7 @@ export default function ViewAttendance() {
 
       // Fetch attendance data
       const attendanceResponse = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/get-attendance",
+        "https://rc-and-ugc.onrender.com/get-attendance",
         { userEmail: emailAddress }
       );
       let data = attendanceResponse.data.data;
@@ -480,7 +480,7 @@ export default function ViewAttendance() {
     try {
       // Fetch user data
       const userResponse = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/get-all-user",
+        "https://rc-and-ugc.onrender.com/get-all-user",
         {}
       );
       const users = userResponse.data.data;
@@ -500,7 +500,7 @@ export default function ViewAttendance() {
 
       // Fetch attendance data
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/get-attendance",
+        "https://rc-and-ugc.onrender.com/get-attendance",
         {
           userEmail: userEmail,
         }

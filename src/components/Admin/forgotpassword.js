@@ -56,7 +56,7 @@ export default function ForgotPassword() {
 
     try {
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/send-otp-forgotpassword",
+        "https://rc-and-ugc.onrender.com/send-otp-forgotpassword",
         { emailAddress: email }
       );
       const res = response.data;
@@ -99,10 +99,7 @@ export default function ForgotPassword() {
     };
 
     axios
-      .put(
-        "https://rc-ugc-attendance-backend.onrender.com/forgot-password-reset",
-        body
-      )
+      .put("https://rc-and-ugc.onrender.com/forgot-password-reset", body)
       .then(async (response) => {
         const res = await response.data;
         if (res.status === 200) {

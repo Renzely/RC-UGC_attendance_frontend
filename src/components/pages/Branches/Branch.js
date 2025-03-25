@@ -929,7 +929,7 @@ export default function OUTLET() {
     if (statusCategory && selectedStatus) {
       try {
         const response = await fetch(
-          `https://rc-ugc-attendance-backend.onrender.com/get-skus-by-status?branch=${encodeURIComponent(
+          `https://rc-and-ugc.onrender.com/get-skus-by-status?branch=${encodeURIComponent(
             selectedBranch
           )}&statusCategory=${encodeURIComponent(
             statusCategory
@@ -1095,7 +1095,7 @@ export default function OUTLET() {
 
     try {
       const response = await fetch(
-        `https://rc-ugc-attendance-backend.onrender.com/get-skus?accountNameBranchManning=${encodeURIComponent(
+        `https://rc-and-ugc.onrender.com/get-skus?accountNameBranchManning=${encodeURIComponent(
           branch
         )}`
       );
@@ -1131,7 +1131,7 @@ export default function OUTLET() {
       }));
 
       const response = await fetch(
-        "https://rc-ugc-attendance-backend.onrender.com/save-branch-sku",
+        "https://rc-and-ugc.onrender.com/save-branch-sku",
         {
           method: "POST",
           body: JSON.stringify({
@@ -1191,7 +1191,7 @@ export default function OUTLET() {
 
     try {
       const response = await fetch(
-        "https://rc-ugc-attendance-backend.onrender.com/disable-sku",
+        "https://rc-and-ugc.onrender.com/disable-sku",
         {
           method: "POST",
           headers: {
@@ -1227,7 +1227,7 @@ export default function OUTLET() {
 
     try {
       const response = await fetch(
-        "https://rc-ugc-attendance-backend.onrender.com/enable-sku",
+        "https://rc-and-ugc.onrender.com/enable-sku",
         {
           method: "POST",
           headers: {
@@ -1265,7 +1265,7 @@ export default function OUTLET() {
 
     try {
       const response = await fetch(
-        "https://rc-ugc-attendance-backend.onrender.com/delisted-sku",
+        "https://rc-and-ugc.onrender.com/delisted-sku",
         {
           method: "POST",
           headers: {
@@ -1302,7 +1302,7 @@ export default function OUTLET() {
 
     try {
       const response = await fetch(
-        "https://rc-ugc-attendance-backend.onrender.com/update-sku-status",
+        "https://rc-and-ugc.onrender.com/update-sku-status",
         {
           method: "POST",
           headers: {

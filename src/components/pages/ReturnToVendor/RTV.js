@@ -175,7 +175,7 @@ export default function RTV() {
 
       // Send request to fetch RTV data filtered by branches
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/retrieve-RTV-data",
+        "https://rc-and-ugc.onrender.com/retrieve-RTV-data",
         {
           branches,
         }
@@ -221,7 +221,7 @@ export default function RTV() {
 
       // Send request to filter RTV data by date and branches
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/filter-RTV-data",
+        "https://rc-and-ugc.onrender.com/filter-RTV-data",
         {
           selectDate: selectedDate,
           branches,
@@ -268,7 +268,7 @@ export default function RTV() {
 
     try {
       const response = await axios.post(
-        "https://rc-ugc-attendance-backend.onrender.com/export-RTV-data",
+        "https://rc-and-ugc.onrender.com/export-RTV-data",
         {
           start: bDate,
           end: eDate,
