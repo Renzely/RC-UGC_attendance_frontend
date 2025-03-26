@@ -99,6 +99,7 @@ export default function Account() {
   const [branches, setBranches] = React.useState([
     "OFFICE",
     "HEAD OFFICE",
+    "CEBU OFFICE",
     "Branch",
     "UGC Tanay",
     "UGC Pasig City",
