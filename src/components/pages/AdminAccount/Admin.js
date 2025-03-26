@@ -187,6 +187,7 @@ export default function Admin() {
 
   const branches = [
     "OFFICE",
+    "CEBU OFFICE",
     "HEAD OFFICE",
     "Branch",
     "UGC Tanay",
