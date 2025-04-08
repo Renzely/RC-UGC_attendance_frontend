@@ -1,4 +1,4 @@
-import "./inventoryStyle.css";
+import "./competitors.css";
 import * as React from "react";
 import Topbar from "../../topbar/Topbar";
 import Sidebar from "../../sidebar/Sidebar";
@@ -38,7 +38,7 @@ function CustomToolbar() {
   );
 }
 
-export default function Inventory() {
+export default function Competitors() {
   const [userData, setUserData] = React.useState([]);
   const [dateFilter, setDateFilter] = React.useState(null);
   const body = { test: "test" };
@@ -76,201 +76,128 @@ export default function Inventory() {
     {
       field: "count",
       headerName: "#",
-      width: 150,
+      width: 50,
       headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "date",
       headerName: "Date",
-      width: 200,
+      width: 150,
       headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "inputId",
       headerName: "Input ID",
-      width: 200,
+      width: 150,
       headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
     },
     {
-      field: "name",
-      headerName: "Merchandiser",
+      field: "merchandiserName",
+      headerName: "Merchandiser Name",
+      width: 200,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+
+    {
+      field: "outlet",
+      headerName: "Outlet",
+      width: 200,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "store",
+      headerName: "Store",
+      width: 200,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "company",
+      headerName: "Company",
+      width: 200,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "brand",
+      headerName: "Brand",
+      width: 200,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "promotionalType",
+      headerName: "Promotional Type",
+      width: 250,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "promotionalTypeDetails",
+      headerName: "Promo Type Details",
+      width: 350,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "displayLocation",
+      headerName: "Display Location",
+      width: 250,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "pricing",
+      headerName: "Pricing",
+      width: 200,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "durationOfPromo",
+      headerName: "Duration of Promo",
+      width: 250,
+      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "impactToOurProduct",
+      headerName: "Impact to Our Product",
       width: 300,
       headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
     },
     {
-      field: "UserEmail",
-      headerName: "Email",
-      width: 300,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "accountNameBranchManning",
-      headerName: "Account Name Branch",
+      field: "customerFeedback",
+      headerName: "Customer Feedback",
       width: 350,
       headerClassName: "bold-header",
-    },
-    {
-      field: "period",
-      headerName: "Period",
-      width: 200,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "month",
-      headerName: "Month",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "week",
-      headerName: "Week",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "category",
-      headerName: "Category",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "skuDescription",
-      headerName: "SKU Description",
-      width: 350,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "products",
-      headerName: "Products",
-      width: 200,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "skuCode",
-      headerName: "SKU Code",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "beginningSA",
-      headerName: "Beginning (Selling Area)",
-      width: 200,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "beginningWA",
-      headerName: "Beginning (Warehouse Area)",
-      width: 230,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "beginning",
-      headerName: "Beginning",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "delivery",
-      headerName: "Delivery",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "endingSA",
-      headerName: "Ending (Selling Area)",
-      width: 200,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "endingWA",
-      headerName: "Ending (Warehouse Area)",
-      width: 200,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "ending",
-      headerName: "Ending",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "expiryFields",
-      headerName: "EXPIRY FIELDS",
-      width: 350,
-      headerClassName: "bold-header",
-      renderCell: (params) => {
-        const expiryFields = params.value;
-        if (Array.isArray(expiryFields) && expiryFields.length > 0) {
-          return (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-              {expiryFields.map((field, index) => (
-                <div
-                  key={index}
-                  style={{ display: "flex", flexDirection: "row" }}
-                >
-                  {`MONTH: ${field.expiryMonth} PCS: ${field.expiryPcs} ||`}
-                </div>
-              ))}
-            </div>
-          );
-        }
-        return "No expiry fields";
-      },
-      valueFormatter: (params) => {
-        // Preprocess the expiryFields array for CSV export
-        const expiryFields = params.value;
-        if (Array.isArray(expiryFields) && expiryFields.length > 0) {
-          return expiryFields
-            .slice(0, 6) // Limit to 6 entries, if necessary
-            .map(
-              (field) => `MONTH: ${field.expiryMonth}, PCS: ${field.expiryPcs}`
-            )
-            .join(" | ");
-        }
-        return "No expiry fields";
-      },
-    },
-    {
-      field: "offtake",
-      headerName: "Offtake",
-      width: 200,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "inventoryDaysLevel",
-      headerName: "InventoryDaysLevel",
-      width: 200,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "noOfDaysOOS",
-      headerName: "No Of Days OOS",
-      width: 180,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "remarksOOS",
-      headerName: "Remarks",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "reasonOOS",
-      headerName: "Reason",
-      width: 220,
-      headerClassName: "bold-header",
+      headerAlign: "center",
+      align: "center",
     },
   ];
 
-  async function getUser() {
+  async function getCompetitorsData() {
     try {
-      // Retrieve the logged-in admin's accountNameBranchManning from localStorage
       const loggedInBranch = localStorage.getItem("accountNameBranchManning");
 
       console.log("Logged in branch:", loggedInBranch);
@@ -280,66 +207,54 @@ export default function Inventory() {
         return;
       }
 
-      // Prepare the branch list for the request
-      const branches = loggedInBranch.split(",");
+      const branches = loggedInBranch.split(",").map((branch) => branch.trim());
 
-      // Fetch the inventory data filtered by branches
+      console.log("Sending branches to API:", branches);
+
       const response = await axios.post(
-        "https://rc-and-ugc.onrender.com/retrieve-parcel-data",
-        { branches } // Pass branches in the request body
+        "https://rc-and-ugc.onrender.com/retrieve-competitor-data",
+        { branches }
       );
 
-      const data = response.data.data;
-      console.log(data, "backend response");
+      console.log("Raw API Response:", response.data);
+      console.log("Filtered Data:", response.data.data);
 
-      // Sort the data by date in descending order
+      const data = response.data.data;
+
+      if (!data || data.length === 0) {
+        console.warn("No data received from API");
+        setUserData([]);
+        return;
+      }
+
       const sortedData = data.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
       );
 
-      // Map the data for rendering
-      const newData = sortedData.map((data, key) => {
-        const value = (status, defaultValue) => {
-          if (status === "Delisted") return "Delisted";
-          if (status === "Not Carried") return "NC";
-          return defaultValue || 0;
-        };
+      const newData = sortedData.map((data, key) => ({
+        id: key + 1, // Ensure each row has a unique `id` for DataGrid
+        count: key + 1,
+        date: data.date,
+        inputId: data.inputId,
+        userEmail: data.userEmail,
+        merchandiserName: data.merchandiserName,
+        outlet: data.outlet,
+        store: data.store,
+        company: data.company,
+        brand: data.brand,
+        promotionalType: data.promotionalType,
+        promotionalTypeDetails: data.promotionalTypeDetails,
+        displayLocation: data.displayLocation,
+        pricing: data.pricing,
+        durationOfPromo: data.durationOfPromo,
+        impactToOurProduct: data.impactToOurProduct,
+        customerFeedback: data.customerFeedback,
+      }));
 
-        return {
-          count: key + 1,
-          date: data.date,
-          inputId: data.inputId,
-          name: data.name,
-          UserEmail: data.userEmail,
-          accountNameBranchManning: data.accountNameBranchManning,
-          period: data.period,
-          month: data.month,
-          week: data.week,
-          category: data.category,
-          skuDescription: data.skuDescription,
-          products: data.products,
-          skuCode: data.skuCode,
-          status: data.status,
-          beginningSA: value(data.status, data.beginningSA),
-          beginningWA: value(data.status, data.beginningWA),
-          beginning: value(data.status, data.beginning),
-          delivery: value(data.status, data.delivery),
-          endingSA: value(data.status, data.endingSA),
-          endingWA: value(data.status, data.endingWA),
-          ending: value(data.status, data.ending),
-          offtake: value(data.status, data.offtake),
-          inventoryDaysLevel: value(data.status, data.inventoryDaysLevel),
-          noOfDaysOOS: value(data.status, data.noOfDaysOOS),
-          remarksOOS: data.remarksOOS,
-          reasonOOS: data.reasonOOS,
-          expiryFields: data.expiryFields,
-        };
-      });
-
-      console.log(newData, "mapped data");
-      setUserData(newData); // Set the filtered data for rendering
+      console.log("Mapped Data:", newData);
+      setUserData(newData);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching competitor data:", error);
     }
   }
 
@@ -383,43 +298,25 @@ export default function Inventory() {
         (a, b) => new Date(b.date) - new Date(a.date)
       );
 
-      const newData = sortedData.map((data, key) => {
-        const value = (status, defaultValue) => {
-          if (status === "Delisted") return "Delisted";
-          if (status === "Not Carried") return "NC";
-          return defaultValue || 0;
-        };
-
-        return {
-          count: key + 1,
-          date: data.date,
-          inputId: data.inputId,
-          name: data.name,
-          UserEmail: data.userEmail,
-          accountNameBranchManning: data.accountNameBranchManning,
-          period: data.period,
-          month: data.month,
-          week: data.week,
-          category: data.category,
-          skuDescription: data.skuDescription,
-          products: data.products,
-          skuCode: data.skuCode,
-          status: data.status,
-          beginningSA: value(data.status, data.beginningSA),
-          beginningWA: value(data.status, data.beginningWA),
-          beginning: value(data.status, data.beginning),
-          delivery: value(data.status, data.delivery),
-          endingSA: value(data.status, data.endingSA),
-          endingWA: value(data.status, data.endingWA),
-          ending: value(data.status, data.ending),
-          offtake: value(data.status, data.offtake),
-          inventoryDaysLevel: value(data.status, data.inventoryDaysLevel),
-          noOfDaysOOS: value(data.status, data.noOfDaysOOS),
-          remarksOOS: data.remarksOOS,
-          reasonOOS: data.reasonOOS,
-          expiryFields: data.expiryFields,
-        };
-      });
+      const newData = sortedData.map((data, key) => ({
+        id: key + 1, // Ensure each row has a unique `id` for DataGrid
+        count: key + 1,
+        date: data.date,
+        inputId: data.inputId,
+        userEmail: data.userEmail,
+        merchandiserName: data.merchandiserName,
+        outlet: data.outlet,
+        store: data.store,
+        company: data.company,
+        brand: data.brand,
+        promotionalType: data.promotionalType,
+        promotionalTypeDetails: data.promotionalTypeDetails,
+        displayLocation: data.displayLocation,
+        pricing: data.pricing,
+        durationOfPromo: data.durationOfPromo,
+        impactToOurProduct: data.impactToOurProduct,
+        customerFeedback: data.customerFeedback,
+      }));
 
       console.log("Mapped data:", newData);
       setUserData(newData); // Set data to render in the DataGrid
@@ -429,7 +326,7 @@ export default function Inventory() {
   }
 
   React.useEffect(() => {
-    getUser();
+    getCompetitorsData();
   }, []);
 
   const getExportData = async () => {
@@ -446,7 +343,7 @@ export default function Inventory() {
 
     try {
       const response = await axios.post(
-        "https://rc-and-ugc.onrender.com/export-inventory-data-towi",
+        "https://rc-and-ugc.onrender.com/export-competitors-data",
         {
           start: bDate,
           end: eDate,
@@ -455,63 +352,38 @@ export default function Inventory() {
 
       const headers = [
         "#",
-        "Inventory Number",
         "Date",
-        "Fullname",
+        "Input ID",
+        "Merchandiser Name",
         "Outlet",
-        "Weeks Covered",
-        "Month",
-        "Week",
-        "SKU",
-        "SKU CODE",
-        "Status",
-        "BeginningSA",
-        "BeginningWA",
-        "Beginning",
-        "Delivery",
-        "EndingSA",
-        "EndingWA",
-        "Ending",
-        "Expiry Fields",
-        "Offtake",
-        "Inventory Days Level",
-        "No of Days OOS",
-        "Remarks OOS",
+        "Store",
+        "Company",
+        "Brand",
+        "Promotional Type",
+        "Promotional Type Details",
+        "Display Location",
+        "Pricing",
+        "Duration of Promo",
+        "Impact to Our Product",
+        "Customer Feedback",
       ];
 
-      const newData = response.data.data.map((item, key) => ({
+      const newData = response.data.data.map((data, key) => ({
         count: key + 1,
-        inputId: item.inputId,
-        date: item.date,
-        name: item.name,
-        accountNameBranchManning: item.accountNameBranchManning,
-        period: item.period,
-        month: item.month,
-        week: item.week,
-        skuDescription: item.skuDescription,
-        skuCode: item.skuCode,
-        status: item.status,
-        beginningSA: item.beginningSA,
-        beginningWA: item.beginningWA,
-        beginning: item.beginning,
-        delivery: item.delivery,
-        endingSA: item.endingSA,
-        endingWA: item.endingWA,
-        ending: item.ending,
-        expiryFields: item.expiryFields
-          ? item.expiryFields
-              .map(
-                (field) =>
-                  `${field.expiryMonth || ""}: ${field.expiryPcs || ""}`
-              )
-              .join(", ")
-          : "",
-        offtake: item.offtake,
-        inventoryDaysLevel: item.inventoryDaysLevel
-          ? item.inventoryDaysLevel.toFixed(2)
-          : "",
-        noOfDaysOOS: item.noOfDaysOOS,
-        remarksOOS: item.remarksOOS,
+        date: data.date,
+        inputId: data.inputId,
+        merchandiserName: data.merchandiserName,
+        outlet: data.outlet,
+        store: data.store,
+        company: data.company,
+        brand: data.brand,
+        promotionalType: data.promotionalType,
+        promotionalTypeDetails: data.promotionalTypeDetails,
+        displayLocation: data.displayLocation,
+        pricing: data.pricing,
+        durationOfPromo: data.durationOfPromo,
+        impactToOurProduct: data.impactToOurProduct,
+        customerFeedback: data.customerFeedback,
       }));
 
       const wb = XLSX.utils.book_new();
@@ -524,23 +396,12 @@ export default function Inventory() {
         skipHeader: true,
       });
 
-      // Calculate dynamic column widths for SKU and Inventory Days Level
-      const colWidths = headers.map((header, index) => {
-        if (header === "SKU" || header === "Inventory Days Level") {
-          const maxLength = Math.max(
-            header.length, // Length of the header
-            ...newData.map(
-              (row) => (row[Object.keys(row)[index]] || "").toString().length
-            ) // Length of data in the column
-          );
-          return { wch: maxLength + 6 }; // Add padding for better appearance
-        }
-        return { wch: Math.max(header.length, 15) }; // Default width for other columns
-      });
-
+      // Calculate dynamic column widths
+      const colWidths = headers.map((header, index) => ({
+        wch: Math.max(header.length, 15),
+      }));
       ws["!cols"] = colWidths;
 
-      // Apply bold styling to headers
       headers.forEach((_, index) => {
         const cellAddress = XLSX.utils.encode_cell({ r: 0, c: index });
         if (!ws[cellAddress]) return;
@@ -550,31 +411,19 @@ export default function Inventory() {
         };
       });
 
-      // Apply center alignment to all data cells
-      newData.forEach((row, rowIndex) => {
-        Object.keys(row).forEach((_, colIndex) => {
-          const cellAddress = XLSX.utils.encode_cell({
-            r: rowIndex + 1,
-            c: colIndex,
-          }); // Row index starts at 1 for data
-          if (!ws[cellAddress]) return;
-          ws[cellAddress].s = {
-            alignment: { horizontal: "center", vertical: "center" },
-          };
-        });
-      });
-
-      XLSX.utils.book_append_sheet(wb, ws, "Inventory_Data");
+      XLSX.utils.book_append_sheet(wb, ws, "Competitors_Data");
 
       const buffer = XLSX.write(wb, { type: "array", bookType: "xlsx" });
       const blob = new Blob([buffer], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
+
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = `INVENTORY_DATA_TOWI_${
+      link.download = `COMPETITORS_DATA_${
         new Date().toISOString().split("T")[0]
       }.xlsx`;
+
       document.body.appendChild(link);
       link.click();
     } catch (error) {
@@ -594,7 +443,7 @@ export default function Inventory() {
             padding: { xs: "10px", sm: "20px" },
             maxWidth: "100%",
             overflow: "auto",
-            backgroundColor: "#52B788",
+            backgroundColor: "#003554",
           }}
         >
           {/* Responsive Header with Controls */}
@@ -635,10 +484,10 @@ export default function Inventory() {
               onClick={getExportData}
               variant="contained"
               sx={{
-                backgroundColor: "rgb(33, 148, 29)",
+                backgroundColor: "#0A21C0",
                 color: "white",
                 "&:hover": {
-                  backgroundColor: "rgb(33, 148, 29)",
+                  backgroundColor: "#0A21C0",
                 },
               }}
             >

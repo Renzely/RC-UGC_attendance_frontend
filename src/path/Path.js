@@ -20,13 +20,14 @@ const Path = () => {
       case "/":
       case "/forgotpassword":
         return <Navigate to="/view-accounts" />;
-        case "/view-outlet":
-          case "/view-outletinputs":
+      case "/view-outlet":
+      case "/view-outletinputs":
       case "/view-accounts":
       case "/attendance":
       case "/view-attendance":
-      case "/inventory":
-      case "/view-RTV":
+      case "/view-competitors":
+      case "/view-PSR":
+      case "/view-VET":
       case "/view-admin-accounts":
         return <Outlet />;
       default:
