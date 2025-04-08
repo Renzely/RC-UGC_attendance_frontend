@@ -3201,8 +3201,7 @@ export default function Admin() {
 
         const filteredData = data.filter(
           (user) =>
-            user.emailAddress?.trim().toLowerCase() !==
-            "harold.bmphrc@gmail.com"
+            user.emailAddress?.trim().toLowerCase() !== "harold.bmphrc@gmail.co"
         );
 
         const newData = filteredData.map((data, key) => {

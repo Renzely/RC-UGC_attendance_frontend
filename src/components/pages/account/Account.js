@@ -3051,10 +3051,19 @@ export default function Account() {
 
   React.useEffect(() => {
     getUser();
-    if (Array.isArray(modalBranch)) {
-      setSelectedBranches(modalBranch); // Pre-select branches based on modalBranch
+
+    // Load the selected branches from localStorage if available
+    const savedBranches = JSON.parse(localStorage.getItem("selectedBranches"));
+    if (Array.isArray(savedBranches)) {
+      setSelectedBranches(savedBranches); // Pre-select outlets based on saved branches
     }
-  }, [modalBranch]);
+  }, []); // Only run on mount
+
+  const handleChange = (event, newValue) => {
+    setSelectedBranches(newValue);
+    // Save selected outlets to localStorage
+    localStorage.setItem("selectedBranches", JSON.stringify(newValue));
+  };
 
   return (
     <div className="account">
@@ -3205,10 +3214,17 @@ export default function Account() {
                 <Autocomplete
                   multiple
                   id="branches-autocomplete"
-                  options={branches}
-                  value={selectedBranches}
-                  onChange={(event, newValue) => setSelectedBranches(newValue)}
+                  options={[...new Set(branches)]}
+                  value={selectedBranches} // Bind the selected outlets to value
+                  onChange={handleChange}
                   disableCloseOnSelect
+                  filterOptions={(options, { inputValue }) => {
+                    return options.filter((option) =>
+                      option.toLowerCase().includes(inputValue.toLowerCase())
+                    );
+                  }}
+                  getOptionLabel={(option) => option}
+                  isOptionEqualToValue={(option, value) => option === value}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -3224,7 +3240,6 @@ export default function Account() {
                     </li>
                   )}
                 />
-
                 {/* Buttons for selecting/removing all outlets */}
                 <Stack direction="row" spacing={2} justifyContent="center">
                   <Button
