@@ -1,4 +1,4 @@
-import "./RTV.css";
+import "./VET_TYPE.css";
 import * as React from "react";
 import Topbar from "../../topbar/Topbar";
 import Sidebar from "../../sidebar/Sidebar";
@@ -17,6 +17,14 @@ import { Link } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -38,7 +46,7 @@ function CustomToolbar() {
   );
 }
 
-export default function RTV() {
+export default function VET() {
   const [userData, setUserData] = React.useState([]);
   const [dateFilter, setDateFilter] = React.useState(null);
   const body = { test: "test" };
@@ -48,95 +56,156 @@ export default function RTV() {
   const XLSX = require("sheetjs-style");
   const [dateBegin, setDateBegin] = React.useState(null);
   const [dateEnd, setDateEnd] = React.useState(null);
+  const [imageModalOpen, setImageModalOpen] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState("");
 
   const columns = [
-    { field: "count", headerName: "#", width: 75 },
+    {
+      field: "count",
+      headerName: "#",
+      width: 75,
+      headerAlign: "center",
+      align: "center",
+    },
+
     {
       field: "date",
       headerName: "Date",
       width: 150,
       headerClassName: "bold-header",
+      headerAlign: "center", // Center the header text
+      align: "center", // Center the data
     },
-
     {
       field: "merchandiserName",
       headerName: "Merchandiser Name",
       width: 220,
       headerClassName: "bold-header",
+      headerAlign: "center", // Center the header text
+      align: "center", // Center the data
     },
-    {
-      field: "UserEmail",
-      headerName: "Email",
-      width: 220,
-      headerClassName: "bold-header",
-    },
+
     {
       field: "outlet",
       headerName: "Outlet",
       width: 220,
       headerClassName: "bold-header",
+      headerAlign: "center", // Center the header text
+      align: "center", // Center the data
     },
     {
-      field: "item",
-      headerName: "Item",
-      width: 220,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "quantity",
-      headerName: "Quantity",
-      width: 150,
-      headerClassName: "bold-header",
-    },
-    {
-      field: "driverName",
-      headerName: "Driver Name",
+      field: "selectedType",
+      headerName: "Selected Type",
       width: 200,
       headerClassName: "bold-header",
+      headerAlign: "center", // Center the header text
+      align: "center", // Center the data
     },
     {
-      field: "plateNumber",
-      headerName: "Plate Number",
-      width: 150,
+      field: "shelfSpace",
+      headerName: "80% Shelf Space",
+      width: 180,
       headerClassName: "bold-header",
+      headerAlign: "center", // Center the header text
+      align: "center", // Center the data
+      renderCell: (params) => (
+        <div style={{ whiteSpace: "pre-wrap", textAlign: "center" }}>
+          {params.value || "No Answer"}
+        </div>
+      ),
     },
     {
-      field: "pullOutReason",
-      headerName: "Pull Out Reason",
+      field: "designatedRack",
+      headerName: "Designated Rack",
+      width: 180,
+      headerClassName: "bold-header",
+      headerAlign: "center", // Center the header text
+      align: "center", // Center the data
+      renderCell: (params) => (
+        <div style={{ whiteSpace: "pre-wrap", textAlign: "center" }}>
+          {params.value || "No Answer"}
+        </div>
+      ),
+    },
+
+    {
+      field: "beforeImage",
+      headerName: "Before Image",
       width: 200,
       headerClassName: "bold-header",
-      //type: buttonBaseClasses,
+      headerAlign: "center", // Center the header text
+      align: "center", // Center the data
+      renderCell: (params) => {
+        const beforeImageUrl = params.row.beforeImage;
+
+        return (
+          <Stack style={{ marginTop: 10, alignItems: "center" }}>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => {
+                if (beforeImageUrl) {
+                  handleOpenImageModal(beforeImageUrl);
+                } else {
+                  alert("Before image not available");
+                }
+              }}
+              sx={{
+                backgroundColor: "#0A21C0", // Set the background color
+                "&:hover": {
+                  backgroundColor: "#0A21C0", // Set the hover background color
+                },
+                cursor: beforeImageUrl ? "pointer" : "not-allowed", // Disable pointer if no image
+              }}
+            >
+              {beforeImageUrl ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </Button>
+          </Stack>
+        );
+      },
     },
+    {
+      field: "afterImage",
+      headerName: "After Image",
+      width: 200,
+      headerClassName: "bold-header",
+      headerAlign: "center", // Center the header text
+      align: "center", // Center the data
+      renderCell: (params) => {
+        const afterImageUrl = params.row.afterImage;
 
-    // {
-    //   field: "action",
-    //   headerName: "Action",
-    //   width: 200,
-    //   sortable: false,
-    //   disableClickEventBubbling: true,
-
-    //   renderCell: (params) => {
-    //     const onClick = (e) => {
-    //       const currentRow = params.row;
-    //       return alert(JSON.stringify(currentRow, null, 4));
-    //     };
-
-    //     return (
-    //       <Stack>
-    //         <Link
-    //           to={"/view-parcel"}
-    //           state={{ state: params.row.email }}
-    //           style={{ textDecoration: "none" }}
-    //         >
-    //           <Button variant="contained" color="warning" size="small">
-    //             View More
-    //           </Button>
-    //         </Link>
-    //       </Stack>
-    //     );
-    //   },
-    // },
+        return (
+          <Stack style={{ marginTop: 10, alignItems: "center" }}>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => {
+                if (afterImageUrl) {
+                  handleOpenImageModal(afterImageUrl);
+                } else {
+                  alert("After image not available");
+                }
+              }}
+              sx={{
+                backgroundColor: "#0A21C0", // Set the background color
+                "&:hover": {
+                  backgroundColor: "#0A21C0", // Set the hover background color
+                },
+                cursor: afterImageUrl ? "pointer" : "not-allowed", // Disable pointer if no image
+              }}
+            >
+              {afterImageUrl ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </Button>
+          </Stack>
+        );
+      },
+    },
   ];
+
+  function handleOpenImageModal(imageUrl) {
+    setImageModalOpen(true);
+    setSelectedImage(imageUrl);
+  }
 
   const filterParcelDate = () => {
     //let selectedDate = new Date(dateFilter.$d).toLocaleString('en-us',{month:'numeric', timeZone: 'Asia/Manila'});
@@ -173,37 +242,56 @@ export default function RTV() {
 
       const branches = loggedInBranch.split(",").map((branch) => branch.trim());
 
-      // Send request to fetch RTV data filtered by branches
+      // Send request to fetch QTT Scoring data filtered by branches
       const response = await axios.post(
-        "https://rc-and-ugc.onrender.com/retrieve-RTV-data",
-        {
-          branches,
-        }
+        "https://rc-and-ugc.onrender.com/retrieve-QTTS-data",
+        { branches }
       );
 
-      const data = response.data.data;
+      if (response.status !== 200) {
+        console.error("Failed to fetch QTT Scoring data:", response.statusText);
+        return;
+      }
 
-      // Sort and map the data
+      const data = response.data.data || [];
+
+      // Sort data by date in descending order (latest first)
       const sortedData = data.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
       );
-      const newData = sortedData.map((data, key) => ({
-        count: key + 1,
-        date: data.date,
-        merchandiserName: data.merchandiserName,
-        UserEmail: data.userEmail,
-        outlet: data.outlet,
-        item: data.item,
-        quantity: data.quantity,
-        driverName: data.driverName,
-        plateNumber: data.plateNumber,
-        pullOutReason: data.pullOutReason,
-      }));
 
-      console.log("Filtered RTV data:", newData);
-      setUserData(newData); // Set the filtered data
+      // Filter data to include only VET type
+      const vetData = sortedData.filter((data) => data.selectedType === "VET");
+
+      // Map and transform the filtered data
+      const newData = vetData.map((data, key) => {
+        const selectedAnswers = data.selectedAnswers || {};
+
+        // Separate answers for '80% Shelf Space' and 'Designated Rack'
+        const shelfSpaceAnswer =
+          selectedAnswers["80% Shelf Space."] || "No Answer";
+        const designatedRackAnswer =
+          selectedAnswers["Designated Rack."] || "No Answer";
+
+        return {
+          count: key + 1,
+          date: data.date,
+          merchandiserName: data.merchandiserName,
+          userEmail: data.userEmail,
+          inputId: data.inputId,
+          outlet: data.outlet,
+          selectedType: data.selectedType,
+          shelfSpace: shelfSpaceAnswer,
+          designatedRack: designatedRackAnswer,
+          beforeImage: data.beforeImage || "",
+          afterImage: data.afterImage || "",
+        };
+      });
+
+      console.log("Filtered QTT Scoring data (VET only):", newData);
+      setUserData(newData); // Update state with the filtered data
     } catch (error) {
-      console.error("Error fetching RTV data:", error);
+      console.error("Error fetching QTT Scoring data:", error.message);
     }
   }
 
@@ -240,11 +328,11 @@ export default function RTV() {
         merchandiserName: data.merchandiserName,
         UserEmail: data.userEmail,
         outlet: data.outlet,
-        item: data.item,
-        quantity: data.quantity,
-        driverName: data.driverName,
-        plateNumber: data.plateNumber,
-        pullOutReason: data.pullOutReason,
+        selectedType: data.selectedType,
+        shelfSpace: data.shelfSpaceAnswer,
+        designatedRack: data.designatedRackAnswer,
+        beforeImage: data.beforeImage || "",
+        afterImage: data.afterImage || "",
       }));
 
       console.log("Filtered RTV data by date:", newData);
@@ -255,50 +343,59 @@ export default function RTV() {
   }
 
   const getExportData = async () => {
-    if (dateBegin === null || dateEnd === null) {
-      return alert("Please fill date fields");
+    if (!dateBegin || !dateEnd) {
+      return alert("Please fill in both date fields.");
     }
 
-    let bDate = dateBegin.$d.getTime();
-    let eDate = dateEnd.$d.getTime();
+    let bDate = new Date(dateBegin.$d).toISOString().split("T")[0]; // Format: YYYY-MM-DD
+    let eDate = new Date(dateEnd.$d).toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
-    if (eDate - bDate <= 0) {
-      return alert("End date must be ahead of or the same as the start date");
+    if (new Date(eDate) < new Date(bDate)) {
+      return alert("End date must be ahead of or the same as the start date.");
     }
 
     try {
       const response = await axios.post(
-        "https://rc-and-ugc.onrender.com/export-RTV-data",
+        "https://rc-and-ugc.onrender.com/export-VET-data",
         {
           start: bDate,
           end: eDate,
         }
       );
 
+      if (
+        !response.data ||
+        !response.data.data ||
+        response.data.data.length === 0
+      ) {
+        alert("No data found for the selected date range.");
+        return;
+      }
+
+      console.log("Export Data:", response.data.data);
+
       const headers = [
         "#",
         "Date",
         "Merchandiser Name",
         "Outlet",
-        "SKU",
-        "Quantity",
-        "Driver's Name",
-        "Plate Number",
-        "Remarks",
-        "Pull Out Reason",
+        "Selected Type",
+        "80% Shelf Space",
+        "Designated Rack",
+        "Before Image",
+        "After Image",
       ];
 
       const newData = response.data.data.map((item, key) => ({
         count: key + 1,
         date: item.date,
         merchandiserName: item.merchandiserName,
-        // UserEmail: item.userEmail,
         outlet: item.outlet,
-        item: item.item,
-        quantity: item.quantity,
-        driverName: item.driverName,
-        plateNumber: item.plateNumber,
-        pullOutReason: item.pullOutReason,
+        selectedType: item.selectedType,
+        shelfSpace: item.shelfSpace,
+        designatedRack: item.designatedRack,
+        beforeImage: item.beforeImage || "",
+        afterImage: item.afterImage || "",
       }));
 
       const wb = XLSX.utils.book_new();
@@ -311,50 +408,22 @@ export default function RTV() {
         skipHeader: true,
       });
 
-      // Calculate dynamic column widths for MATERIAL DESCRIPTION and Inventory Days Level
+      // Auto-adjust column widths
       const colWidths = headers.map((header, index) => {
-        if (
-          header === "MATERIAL DESCRIPTION" ||
-          header === "Inventory Days Level"
-        ) {
+        if (header === "Before Image" || header === "After Image") {
+          // Find max length of URLs
           const maxLength = Math.max(
-            header.length, // Length of the header
-            ...newData.map(
-              (row) => (row[Object.keys(row)[index]] || "").toString().length
-            ) // Length of data in the column
+            header.length,
+            ...newData.map((row) => (row[Object.keys(row)[index]] || "").length)
           );
-          return { wch: maxLength + 6 }; // Add padding for better appearance
+          return { wch: maxLength + 5 }; // Extra padding
         }
-        return { wch: Math.max(header.length, 15) }; // Default width for other columns
+        return { wch: Math.max(header.length, 15) }; // Default width
       });
 
       ws["!cols"] = colWidths;
 
-      // Apply bold styling to headers
-      headers.forEach((_, index) => {
-        const cellAddress = XLSX.utils.encode_cell({ r: 0, c: index });
-        if (!ws[cellAddress]) return;
-        ws[cellAddress].s = {
-          font: { bold: true },
-          alignment: { horizontal: "center", vertical: "center" },
-        };
-      });
-
-      // Apply center alignment to all data cells
-      newData.forEach((row, rowIndex) => {
-        Object.keys(row).forEach((_, colIndex) => {
-          const cellAddress = XLSX.utils.encode_cell({
-            r: rowIndex + 1,
-            c: colIndex,
-          }); // Row index starts at 1 for data
-          if (!ws[cellAddress]) return;
-          ws[cellAddress].s = {
-            alignment: { horizontal: "center", vertical: "center" },
-          };
-        });
-      });
-
-      XLSX.utils.book_append_sheet(wb, ws, "RTV_Data");
+      XLSX.utils.book_append_sheet(wb, ws, "VET_Data");
 
       const buffer = XLSX.write(wb, { type: "array", bookType: "xlsx" });
       const blob = new Blob([buffer], {
@@ -362,13 +431,11 @@ export default function RTV() {
       });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = `RTV_DATA_TOWI_${
-        new Date().toISOString().split("T")[0]
-      }.xlsx`;
+      link.download = `VET_DATA_${new Date().toISOString().split("T")[0]}.xlsx`;
       document.body.appendChild(link);
       link.click();
     } catch (error) {
-      console.error(error);
+      console.error("Export Error:", error.response?.data || error.message);
       alert("Error exporting data. Please try again.");
     }
   };
@@ -388,7 +455,7 @@ export default function RTV() {
             padding: { xs: "10px", sm: "20px" },
             maxWidth: "100%",
             overflow: "auto",
-            backgroundColor: "#52B788",
+            backgroundColor: "#003554",
           }}
         >
           {/* Controls Section */}
@@ -409,7 +476,6 @@ export default function RTV() {
                 }}
               />
             </LocalizationProvider>
-
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Select Date"
@@ -422,15 +488,36 @@ export default function RTV() {
                 }}
               />
             </LocalizationProvider>
-
+            <Dialog
+              open={imageModalOpen}
+              onClose={() => setImageModalOpen(false)}
+            >
+              <DialogTitle>View Image</DialogTitle>
+              <DialogContent>
+                <img
+                  src={selectedImage}
+                  alt="Selected"
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={() => setImageModalOpen(false)}
+                  color="primary"
+                >
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
+            ;
             <Button
               onClick={getExportData}
               variant="contained"
               sx={{
-                backgroundColor: "rgb(33, 148, 29)",
+                backgroundColor: "#0A21C0",
                 color: "white",
                 "&:hover": {
-                  backgroundColor: "rgb(33, 148, 29)",
+                  backgroundColor: "#0A21C0",
                 },
               }}
             >

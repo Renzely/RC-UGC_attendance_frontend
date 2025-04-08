@@ -7,8 +7,9 @@ import {
   Logout,
   SupervisorAccount,
   AssignmentReturn,
-  Store,
+  Checklist,
 } from "@mui/icons-material";
+import WarehouseIcon from "@mui/icons-material/Warehouse";
 import { Avatar, Typography, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./sidebar.css";
@@ -104,27 +105,26 @@ export default function Sidebar() {
           </li>
         </NavLink>
 
-        {/* <NavLink to="/inventory" onClick={() => handleItemClick("/inventory")}>
-          <li className={activeItem === "/inventory" ? "active" : ""}>
-            <Inventory className="sidebar-icon" /> {isOpen && "Inventory"}
-          </li>
-        </NavLink>
-
         <NavLink
-          to="/view-outletinputs"
-          onClick={() => handleItemClick("/view-outletinputs")}
+          to="/view-competitors"
+          onClick={() => handleItemClick("/view-competitors")}
         >
-          <li className={activeItem === "/view-outletinputs" ? "active" : ""}>
-            <Store className="sidebar-icon" /> {isOpen && "Outlet Inputs"}
+          <li className={activeItem === "/view-competitors" ? "active" : ""}>
+            <WarehouseIcon className="sidebar-icon" /> {isOpen && "Competitors"}
           </li>
         </NavLink>
 
-        <NavLink to="/view-RTV" onClick={() => handleItemClick("/view-RTV")}>
-          <li className={activeItem === "/view-RTV" ? "active" : ""}>
-            <AssignmentReturn className="sidebar-icon" />{" "}
-            {isOpen && "Return to Vendor"}
+        <NavLink to="/view-VET" onClick={() => handleItemClick("/view-VET")}>
+          <li className={activeItem === "/view-VET" ? "active" : ""}>
+            <Checklist className="sidebar-icon" /> {isOpen && "VET"}
           </li>
-        </NavLink> */}
+        </NavLink>
+
+        <NavLink to="/view-PSR" onClick={() => handleItemClick("/view-PSR")}>
+          <li className={activeItem === "/view-PSR" ? "active" : ""}>
+            <Checklist className="sidebar-icon" /> {isOpen && "PSR"}
+          </li>
+        </NavLink>
 
         {/* Logout */}
         <li className="logout" onClick={handleLogout}>
