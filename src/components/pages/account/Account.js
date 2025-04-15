@@ -100,6 +100,7 @@ export default function Account() {
     "OFFICE",
     "HEAD OFFICE",
     "CEBU OFFICE",
+    "SIARGAO",
     "Branch",
     "UGC Tanay",
     "UGC Pasig City",
