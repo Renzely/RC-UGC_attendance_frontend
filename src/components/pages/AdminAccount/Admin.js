@@ -189,6 +189,7 @@ export default function Admin() {
     "OFFICE",
     "CEBU OFFICE",
     "HEAD OFFICE",
+    "SIARGAO",
     "Branch",
     "UGC Tanay",
     "UGC Pasig City",
